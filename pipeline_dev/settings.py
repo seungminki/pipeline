@@ -11,5 +11,23 @@ DB_SETTINGS = {
         'user' : "postgres",
         'password' : "0328",
         'database' : "dvdrental"
+    },
+    'source_db_localhost' : {
+        'location' : 'localhost_source',
+        'host' : "127.0.0.1",
+        'port' : "5432",
+        'user' : "postgres",
+        'password' : "0328",
+        'database' : "dvdrental",
+        'engine' : 'postgre'
+    },
+    'target_db_localhost' : {
+        'location' : 'localhost_target',
+        'host' : "127.0.0.1",
+        'port' : "5432",
+        'user' : "postgres",
+        'password' : "0328",
+        'database' : "sample",
+        'engine' : 'postgre'
     }
 }
