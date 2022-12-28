@@ -5,7 +5,7 @@
 from sys import displayhook
 from db.connector import DBConnector
 # from pipeline.extractor import cursor_extractor, pandas_extractor
-from pipeline import extractor, load
+from pipeline import extractor, load, transform
 from settings import DB_SETTINGS
 # from pipeline import extract, transform, load
 import pandas as pd
@@ -59,15 +59,16 @@ def etl(batch_month, read_option = 'pandas'):
 
         elif read_option == 'pandas':
             _temp = extractor.pandas_extractor(db_connector=source_db, table_name = table, batch_month=batch_month)
+            _temp2 = transform.data_trans(table, _temp)
             # _temp = extractor.pandas_extractor(db_connector=source_db, table_name = table, batch_month=batch_month)
         
-        print(_temp[:2])
+        print(_temp2[:2])
 
         if read_option == 'cursor':
-            load.cursor_loader(db_connector = target_db, table_name = table, data = _temp)
+            load.cursor_loader(db_connector = target_db, table_name = table, data = _temp2)
 
         elif read_option == 'pandas':
-            load.pandas_loader(db_connector = target_engine, table_name = table, data = _temp)
+            load.pandas_loader(db_connector = target_engine, table_name = table, data = _temp2)
 
         # with target_db as target_connected:
         #     create_query = target_connected.get_query('create', table)
